@@ -6,7 +6,7 @@
   <link href="https://blog.shun.idv.tw/atom.xml" rel="self"/>
   
   <link href="https://blog.shun.idv.tw/"/>
-  <updated>2024-10-01T12:33:32.906Z</updated>
+  <updated>2024-09-30T16:00:00.000Z</updated>
   <id>https://blog.shun.idv.tw/</id>
   
   <author>
@@ -17,17 +17,19 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hello World</title>
-    <link href="https://blog.shun.idv.tw/2024/10/01/hello-world/"/>
-    <id>https://blog.shun.idv.tw/2024/10/01/hello-world/</id>
-    <published>2024-10-01T12:33:32.906Z</published>
-    <updated>2024-10-01T12:33:32.906Z</updated>
+    <title>Hello Follow</title>
+    <link href="https://blog.shun.idv.tw/2024/09/30/2024-10-01-hello-follow/"/>
+    <id>https://blog.shun.idv.tw/2024/09/30/2024-10-01-hello-follow/</id>
+    <published>2024-09-30T16:00:00.000Z</published>
+    <updated>2024-09-30T16:00:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>for follow verification.</p>]]></content>
+    
+    
+    <summary type="html">This message is used to verify that this feed (feedId:63919443853272064) belongs to me (userId:62462277991001088). Join me in enjoying the next generation information browser https://follow.is.</summary>
     
     
     
-    
-    
-    <category term="hello" scheme="https://blog.shun.idv.tw/tags/hello/"/>
     
   </entry>
   
