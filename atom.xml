@@ -6,7 +6,7 @@
   <link href="https://blog.shun.idv.tw/atom.xml" rel="self"/>
   
   <link href="https://blog.shun.idv.tw/"/>
-  <updated>2024-09-30T16:00:00.000Z</updated>
+  <updated>2024-10-01T02:00:00.000Z</updated>
   <id>https://blog.shun.idv.tw/</id>
   
   <author>
@@ -18,18 +18,15 @@
   
   <entry>
     <title>Hello Follow</title>
-    <link href="https://blog.shun.idv.tw/2024/09/30/2024-10-01-hello-follow/"/>
-    <id>https://blog.shun.idv.tw/2024/09/30/2024-10-01-hello-follow/</id>
-    <published>2024-09-30T16:00:00.000Z</published>
-    <updated>2024-09-30T16:00:00.000Z</updated>
+    <link href="https://blog.shun.idv.tw/2024/10/01/2024-10-01-hello-follow/"/>
+    <id>https://blog.shun.idv.tw/2024/10/01/2024-10-01-hello-follow/</id>
+    <published>2024-10-01T02:00:00.000Z</published>
+    <updated>2024-10-01T02:00:00.000Z</updated>
     
-    <content type="html"><![CDATA[<p>This message is used to verify that this feed (feedId:63919443853272064) belongs to me (userId:62462277991001088). Join me in enjoying the next generation information browser <a href="https://follow.is/">https://follow.is</a>.</p>]]></content>
+    <content type="html"><![CDATA[<p>有幸得到 <a href="https://follow.is/">Follow</a> 的邀請碼讓我可以搶先在 alpha 階段就可以開始試用，<br>略盡棉薄之力來回饋一下分享我怎麼完成 <code>Feed Owner</code> 的任務。</p><h3 id="Follow-是什麼"><a href="#Follow-是什麼" class="headerlink" title="Follow 是什麼"></a>Follow 是什麼</h3><p>簡單的說就是一個支援多媒體播放的新一代 RSS 閱讀器。<br>搭配 <a href="https://docs.rsshub.app/">RSSHub</a> 可以將許多網站轉成 RSS 的能力，<br>將來大部分的資訊都可以匯集到這個 app 上觀看。</p><p>簡單介紹完，以下來說明我怎麼完成 <code>Feed Owner</code> 這個任務。</p><h3 id="擁有自己的-feed"><a href="#擁有自己的-feed" class="headerlink" title="擁有自己的 feed"></a>擁有自己的 feed</h3><p>首先要有一個 hexo blog，有一個 domain。<br>然後為 hexo 增加 rss 能力。</p><ol><li><p>安裝 <a href="https://github.com/hexojs/hexo-generator-feed?tab=readme-ov-file">hexo-generator-feed</a></p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-feed --save</span><br></pre></td></tr></table></figure></li><li><p>在 <code>_config.yml</code> 增加 feed 的設定</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">feed:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">atom</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">atom.xml</span></span><br><span class="line">  <span class="attr">limit:</span> <span class="number">20</span></span><br><span class="line">  <span class="attr">content:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></li></ol><ul><li><code>type</code> 可選 atom 或 rss2，直接選擇現在主流的 atom 即可</li><li><code>content</code> 設定成 <code>true</code> 以便直接在 follow 可以閱讀全文</li></ul><p>Deploy 之後就可以在 <code>https://yourdomain/atom.xml</code> 看到 Atom 格式的 XML。<br>然後就可以去 follow 把這個 url 加入訂閱了！</p><h3 id="認證自己的-feed"><a href="#認證自己的-feed" class="headerlink" title="認證自己的 feed"></a>認證自己的 feed</h3><ol><li>在 follow 上加入 feed 後右鍵選單選擇 <code>Claim</code></li></ol><p>這裡我們用最簡單的認證方式，開一篇新文章將 follow 指定的文字貼在裡面。</p><ol start="2"><li>發表文章後回到 follow 裡將 claim 的流程走完</li></ol><p>這樣一來應該就可以解開成就拿到 100 power 發邀請碼了！<br>祝大家順利～</p>]]></content>
     
     
-      
-      
-    <summary type="html">&lt;p&gt;This message is used to verify that this feed (feedId:63919443853272064) belongs to me (userId:62462277991001088). Join me in enjoying th</summary>
-      
+    <summary type="html">完成Follow的Feed Owner任務</summary>
     
     
     
