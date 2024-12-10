@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"blog.shun.idv.tw","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="有幸得到 Follow 的邀請碼讓我可以搶先在 alpha 階段就可以開始試用，略盡棉薄之力來回饋一下分享我怎麼完成 Feed Owner 的任務。">
+  <meta name="description" content="Follow 系列文第二篇，來分享我自建 RSSHub 的過程。包括為什麼要自建、怎麼部署、怎麼設定 domain、以及怎麼設定 twitter 的設定等等。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello Follow">
-<meta property="og:url" content="https://blog.shun.idv.tw/2024/10/01/2024-10-01-hello-follow/index.html">
+<meta property="og:title" content="自建 RSSHub 筆記">
+<meta property="og:url" content="https://blog.shun.idv.tw/2024/11/26/2024-11-26-self-host-rsshub/index.html">
 <meta property="og:site_name" content="ShunWorks">
-<meta property="og:description" content="有幸得到 Follow 的邀請碼讓我可以搶先在 alpha 階段就可以開始試用，略盡棉薄之力來回饋一下分享我怎麼完成 Feed Owner 的任務。">
+<meta property="og:description" content="Follow 系列文第二篇，來分享我自建 RSSHub 的過程。包括為什麼要自建、怎麼部署、怎麼設定 domain、以及怎麼設定 twitter 的設定等等。">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2024-10-01T02:00:00.000Z">
-<meta property="article:modified_time" content="2024-10-01T02:00:00.000Z">
+<meta property="article:published_time" content="2024-11-26T02:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-26T02:00:00.000Z">
 <meta property="article:author" content="shun">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://blog.shun.idv.tw/2024/10/01/2024-10-01-hello-follow/">
+<link rel="canonical" href="https://blog.shun.idv.tw/2024/11/26/2024-11-26-self-host-rsshub/">
 
 
 <script id="page-configurations">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>Hello Follow | ShunWorks</title>
+  <title>自建 RSSHub 筆記 | ShunWorks</title>
   
 
 
@@ -161,7 +161,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-tw">
-    <link itemprop="mainEntityOfPage" href="https://blog.shun.idv.tw/2024/10/01/2024-10-01-hello-follow/">
+    <link itemprop="mainEntityOfPage" href="https://blog.shun.idv.tw/2024/11/26/2024-11-26-self-host-rsshub/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/uploads/profile.jpg">
@@ -174,7 +174,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hello Follow
+          自建 RSSHub 筆記
         </h1>
 
         <div class="post-meta">
@@ -184,11 +184,11 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2024-10-01 10:00:00" itemprop="dateCreated datePublished" datetime="2024-10-01T10:00:00+08:00">2024-10-01</time>
+              <time title="Created: 2024-11-26 10:00:00" itemprop="dateCreated datePublished" datetime="2024-11-26T10:00:00+08:00">2024-11-26</time>
             </span>
 
           
-            <div class="post-description">有幸得到 Follow 的邀請碼讓我可以搶先在 alpha 階段就可以開始試用，略盡棉薄之力來回饋一下分享我怎麼完成 Feed Owner 的任務。</div>
+            <div class="post-description">Follow 系列文第二篇，來分享我自建 RSSHub 的過程。包括為什麼要自建、怎麼部署、怎麼設定 domain、以及怎麼設定 twitter 的設定等等。</div>
 
         </div>
       </header>
@@ -199,30 +199,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>有幸得到 <a target="_blank" rel="noopener" href="https://follow.is/">Follow</a> 的邀請碼讓我可以搶先在 alpha 階段就可以開始試用，<br>略盡棉薄之力來回饋一下分享我怎麼完成 <code>Feed Owner</code> 的任務。</p>
-<h3 id="Follow-是什麼"><a href="#Follow-是什麼" class="headerlink" title="Follow 是什麼"></a>Follow 是什麼</h3><p>簡單的說就是一個支援多媒體播放的新一代 RSS 閱讀器。<br>搭配 <a target="_blank" rel="noopener" href="https://docs.rsshub.app/">RSSHub</a> 可以將許多網站轉成 RSS 的能力，<br>將來大部分的資訊都可以匯集到這個 app 上觀看。</p>
-<p>簡單介紹完，以下來說明我怎麼完成 <code>Feed Owner</code> 這個任務。</p>
-<h3 id="擁有自己的-feed"><a href="#擁有自己的-feed" class="headerlink" title="擁有自己的 feed"></a>擁有自己的 feed</h3><p>首先要有一個 hexo blog，有一個 domain。<br>然後為 hexo 增加 rss 能力。</p>
-<ol>
-<li><p>安裝 <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo-generator-feed?tab=readme-ov-file">hexo-generator-feed</a></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-feed --save</span><br></pre></td></tr></table></figure>
+        <p>Follow 系列文第二篇，來分享我自建 RSSHub 的過程。<br>包括為什麼要自建、怎麼部署、怎麼設定 domain、以及怎麼設定 twitter 的設定等等。</p>
+<h3 id="為什麼要自建-RSSHub？"><a href="#為什麼要自建-RSSHub？" class="headerlink" title="為什麼要自建 RSSHub？"></a>為什麼要自建 RSSHub？</h3><ol>
+<li><p>穩定</p>
+<p> 因為官方 RSSHub 節點太多人在使用了，很容易被各個網站封鎖，很容易更新不了內容。<br> 另外自建也可以設定更短的快取過期時間，更快看到新內容。</p>
 </li>
-<li><p>在 <code>_config.yml</code> 增加 feed 的設定</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">feed:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">atom</span></span><br><span class="line">  <span class="attr">path:</span> <span class="string">atom.xml</span></span><br><span class="line">  <span class="attr">limit:</span> <span class="number">20</span></span><br><span class="line">  <span class="attr">content:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure></li>
+<li><p>可以看社群媒體</p>
+<p> 因為第一點的原因，官方的 RSSHub 節點基本上是爬不了社群網站的內容。<br> 還有有些路由支援使用自己的身份，自建的話可以放入自己的 token，例如 twitter。</p>
+</li>
 </ol>
-<ul>
-<li><code>type</code> 可選 atom 或 rss2，直接選擇現在主流的 atom 即可</li>
-<li><code>content</code> 設定成 <code>true</code> 以便直接在 follow 可以閱讀全文</li>
-</ul>
-<p>Deploy 之後就可以在 <code>https://&#123;yourdomain&#125;/atom.xml</code> 看到 atom 格式的 XML。<br>然後就可以去 follow 把這個 url 加入訂閱了！</p>
-<h3 id="認證自己的-feed"><a href="#認證自己的-feed" class="headerlink" title="認證自己的 feed"></a>認證自己的 feed</h3><ol>
-<li>在 follow 上加入 feed 後右鍵選單選擇 <code>Claim</code></li>
-</ol>
-<p>這裡我用最簡單的認證方式，開一篇新文章將 follow 指定的文字貼在裡面。</p>
-<ol start="2">
-<li>發表文章後回到 follow 裡將 claim 的流程走完</li>
-</ol>
-<p>這樣一來應該就可以解開成就拿到 100 power 發邀請碼了！<br>祝大家順利～</p>
+<h3 id="部署到-GCP"><a href="#部署到-GCP" class="headerlink" title="部署到 GCP"></a>部署到 GCP</h3><p>GCP 在試用之外也有提供免費的額度 (參考 <a target="_blank" rel="noopener" href="https://cloud.google.com/free/docs/free-cloud-features#free-tier">free-tier</a>)，如果只是簡單的應用的話是不用花到錢的。</p>
+<p>這次選擇部署在 Google Compute Engine，<br>選擇有免費額度的規格: <code>us-west1</code> 區域的 <code>E2-Micro</code> 規格，並將硬碟改成標準永久硬碟 10GB。<br>在建立 VM 時選擇直接 pull 線上的 image: <code>diygod/rsshub:latest</code>，省略還要安裝 docker 的功夫，<br>而且預設就會做好 port 的 mapping，不用另外設定。</p>
+<p>因為 RSSHub 預設服務 port 是 <code>1200</code>，所以需要設定防火牆，<br>在 <code>VPC networks</code> 底下 <code>Firewall</code> 新增一條輸入規則 <code>tcp:1200</code>，<br>為了資安建議設定來源ip的限制，因為我選擇用 Cloudflare 做 proxy 所以只需要開放 Cloudflare 的 IP 即可 (參考 <a target="_blank" rel="noopener" href="https://www.cloudflare.com/ips/">Cloudflare IP Range</a>)。<br>更嚴謹的話可以開一個新的網路並且只設定這一條規則就好。</p>
+<p>ps. 也可以設定環境變數 <code>PORT</code> 將服務開放的 port 改成 <code>443</code></p>
+<h3 id="設定-domain"><a href="#設定-domain" class="headerlink" title="設定 domain"></a>設定 domain</h3><p>為了減少更換 IP 的困擾，推薦掛上 domain，<br>這次也請出大家的好朋友 Cloudflare，<br>在 DNS 新增一條 <code>A record</code>， proxying 到 VM 的外部 IP 上。</p>
+<p>再來要加上 https！<br>在 <code>Rules</code> 的 <code>Origin Rules</code> 下新增一條規則，設定 <code>Custom Filter</code> 將包含指定 domain 的請求對應到 port <code>1200</code>，<br>只要 SSL 模式設成 flexible 的話 Cloudflare 就會自動幫忙處理 SSL 憑證的事，可以使用 https 開啟網頁。<br>現在使用瀏覽器開啟設定的 domain 的話應該就可以看到 RSSHub 的首頁了！<br>接下來就可以去 Follow 上增加 feed 了～</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><h4 id="設置-twitter"><a href="#設置-twitter" class="headerlink" title="設置 twitter"></a>設置 twitter</h4><p>推薦設置 <code>TWITTER_AUTH_TOKEN</code>，需要使用開發者模式找到自己的 cookie 然後找到 <code>auth_token=</code> 後面那串就是了。<br>需要把它放到 VM 的環境變數，如果已經啟動 VM 了，需要重新啟動才會生效。</p>
+<h4 id="更新版本"><a href="#更新版本" class="headerlink" title="更新版本"></a>更新版本</h4><p>因為我是直接在 VM 設定 pull image，<br>啟動時會去 pull 最新的 image ，所以只要重啟 VM 就會自動更新新的版本了。<br>(我是都點重設， IP 不會變就不用每次都去 Cloudflare 設定)</p>
+<p>是不是比想像中簡單就可以自建一個 RSSHub 了呢，祝大家順利～</p>
 
     </div>
 
@@ -237,11 +231,11 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2024/11/26/2024-11-26-self-host-rsshub/" rel="next" title="自建 RSSHub 筆記">
-      自建 RSSHub 筆記 <i class="fa fa-chevron-right"></i>
+    <a href="/2024/10/01/2024-10-01-hello-follow/" rel="prev" title="Hello Follow">
+      <i class="fa fa-chevron-left"></i> Hello Follow
     </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -300,7 +294,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Follow-%E6%98%AF%E4%BB%80%E9%BA%BC"><span class="nav-number">1.</span> <span class="nav-text">Follow 是什麼</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%81%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84-feed"><span class="nav-number">2.</span> <span class="nav-text">擁有自己的 feed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AA%8D%E8%AD%89%E8%87%AA%E5%B7%B1%E7%9A%84-feed"><span class="nav-number">3.</span> <span class="nav-text">認證自己的 feed</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E8%A6%81%E8%87%AA%E5%BB%BA-RSSHub%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">為什麼要自建 RSSHub？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E5%88%B0-GCP"><span class="nav-number">2.</span> <span class="nav-text">部署到 GCP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A-domain"><span class="nav-number">3.</span> <span class="nav-text">設定 domain</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">4.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A8%AD%E7%BD%AE-twitter"><span class="nav-number">4.1.</span> <span class="nav-text">設置 twitter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E7%89%88%E6%9C%AC"><span class="nav-number">4.2.</span> <span class="nav-text">更新版本</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
