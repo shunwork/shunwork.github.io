@@ -3,11 +3,11 @@
   <title>ShunWorks</title>
   
   
-  <link href="https://blog.shun.idv.tw/atom.xml" rel="self"/>
+  <link href="https://shunwork.github.io/atom.xml" rel="self"/>
   
-  <link href="https://blog.shun.idv.tw/"/>
+  <link href="https://shunwork.github.io/"/>
   <updated>2024-11-26T02:00:00.000Z</updated>
-  <id>https://blog.shun.idv.tw/</id>
+  <id>https://shunwork.github.io/</id>
   
   <author>
     <name>shun</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>自建 RSSHub 筆記</title>
-    <link href="https://blog.shun.idv.tw/2024/11/26/2024-11-26-self-host-rsshub/"/>
-    <id>https://blog.shun.idv.tw/2024/11/26/2024-11-26-self-host-rsshub/</id>
+    <link href="https://shunwork.github.io/2024/11/26/2024-11-26-self-host-rsshub/"/>
+    <id>https://shunwork.github.io/2024/11/26/2024-11-26-self-host-rsshub/</id>
     <published>2024-11-26T02:00:00.000Z</published>
     <updated>2024-11-26T02:00:00.000Z</updated>
     
@@ -35,8 +35,8 @@
   
   <entry>
     <title>Hello Follow</title>
-    <link href="https://blog.shun.idv.tw/2024/10/01/2024-10-01-hello-follow/"/>
-    <id>https://blog.shun.idv.tw/2024/10/01/2024-10-01-hello-follow/</id>
+    <link href="https://shunwork.github.io/2024/10/01/2024-10-01-hello-follow/"/>
+    <id>https://shunwork.github.io/2024/10/01/2024-10-01-hello-follow/</id>
     <published>2024-10-01T02:00:00.000Z</published>
     <updated>2024-10-01T02:00:00.000Z</updated>
     
