@@ -27,13 +27,13 @@
 <meta property="og:site_name" content="ShunWorks">
 <meta property="og:description" content="上個月上了保哥的 SDD 課程，立刻找個簡單的專案來練習。先說結論：有用但不多。以下講講我的使用心得，以及推薦的使用情境。">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://blog.shun.idv.tw/2025-12-31-imgs/speckit_image.png">
+<meta property="og:image" content="https://blog.shun.idv.tw/speckit_image.png">
 <meta property="article:published_time" content="2025-12-31T04:00:00.000Z">
 <meta property="article:modified_time" content="2025-12-31T04:00:00.000Z">
 <meta property="article:author" content="shun">
 <meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.shun.idv.tw/2025-12-31-imgs/speckit_image.png">
+<meta name="twitter:image" content="https://blog.shun.idv.tw/speckit_image.png">
 
 <link rel="canonical" href="https://blog.shun.idv.tw/2025/12/31/2025-12-31-speckit-from-begin-to-giveup/">
 
@@ -214,7 +214,7 @@
         <p>上個月上了保哥的 SDD 課程，立刻找個簡單的專案來練習。<br>先說結論：有用但不多。以下講講我的使用心得，以及推薦的使用情境。</p>
 <h2 id="SpecKit-是什麼？"><a href="#SpecKit-是什麼？" class="headerlink" title="SpecKit 是什麼？"></a>SpecKit 是什麼？</h2><p>SpecKit 是 GitHub 推出的開發工作流程工具，想把軟體開發標準化成一套結構化流程：從建立專案憲章(Constitution)、定義需求(Specify)、規劃實作(Plan)、拆解任務(Tasks)到最後的自動化實作(Implement)。</p>
 <h2 id="使用心得"><a href="#使用心得" class="headerlink" title="使用心得"></a>使用心得</h2><p>我在前人的商品分類小程式上實驗 SpecKit，想要將原本的同步 API 呼叫改成非同步的 batch API 呼叫。總共跑了 3 個 iteration，心得可以用下面這張圖表示：</p>
-<p><img src="/./2025-12-31-imgs/speckit_image.png" alt="SpecKit 實測心得"></p>
+<p><img src="/speckit_image.png" alt="SpecKit 實測心得"></p>
 <p>Spec 和 Plan 看起來都很完美(我真的有認真一行行 review)，但到了 Task 和 Implement 階段就會逐漸失控，出現看起來很棒實際很 shit 的東西。</p>
 <h3 id="我的看法"><a href="#我的看法" class="headerlink" title="我的看法"></a>我的看法</h3><p>我認為翻車的原因主要有以下幾個：</p>
 <p><strong>AI 的幻覺</strong><br>現今 AI 的本質都只是預測下一個 token，只是精巧地模仿著心的機能。<br>對 AI 來說，文件與規範是透過很隱含的關係影響著程式碼， AI 的產出並不是經過邏輯上嚴密的推論而來。</p>
