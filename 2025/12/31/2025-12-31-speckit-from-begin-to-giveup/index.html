@@ -32,6 +32,8 @@
 <meta property="article:modified_time" content="2025-12-31T04:00:00.000Z">
 <meta property="article:author" content="shun">
 <meta property="article:tag" content="AI">
+<meta property="article:tag" content="Agent">
+<meta property="article:tag" content="SDD">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog.shun.idv.tw/2025/12/31/2025-12-31-speckit-from-begin-to-giveup/speckit_image.png">
 
@@ -195,7 +197,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%BB%9F%E9%AB%94%E9%96%8B%E7%99%BC/" itemprop="url" rel="index"><span itemprop="name">軟體開發</span></a>
+                  <a href="/categories/%E9%96%8B%E7%99%BC%E7%B6%93%E9%A9%97/" itemprop="url" rel="index"><span itemprop="name">開發經驗</span></a>
                 </span>
             </span>
 
@@ -212,10 +214,48 @@
 
       
         <p>上個月上了保哥的 SDD 課程，立刻找個簡單的專案來練習。<br>先說結論：有用但不多。以下講講我的使用心得，以及推薦的使用情境。</p>
-<h2 id="SpecKit-是什麼？"><a href="#SpecKit-是什麼？" class="headerlink" title="SpecKit 是什麼？"></a>SpecKit 是什麼？</h2><p>SpecKit 是 GitHub 推出的開發工作流程工具，想把軟體開發標準化成一套結構化流程：從建立專案憲章(Constitution)、定義需求(Specify)、規劃實作(Plan)、拆解任務(Tasks)到最後的自動化實作(Implement)。</p>
-<h2 id="使用心得"><a href="#使用心得" class="headerlink" title="使用心得"></a>使用心得</h2><p>我在前人的商品分類小程式上實驗 SpecKit，想要將原本的同步 API 呼叫改成非同步的 batch API 呼叫。總共跑了 3 個 iteration，心得可以用下面這張圖表示：</p>
+<h2 id="SpecKit-是什麼？"><a href="#SpecKit-是什麼？" class="headerlink" title="SpecKit 是什麼？"></a>SpecKit 是什麼？</h2><p>SpecKit 是 GitHub 推出的開源專案，核心理念基於 **SDD (Spec-Driven Development，規格驅動開發)**。想把軟體開發標準化成一套結構化流程：從建立專案憲章(Constitution)、定義需求(Specify)、規劃實作(Plan)、拆解任務(Tasks)到最後的自動化實作(Implement)。</p>
+<p>整個流程透過 <code>specify</code> CLI 初始化專案，並在 agent 環境中使用一系列指令推進開發：</p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/speckit.constitution</code></td>
+<td>建立專案憲章，定義開發原則與標準</td>
+</tr>
+<tr>
+<td><code>/speckit.specify</code></td>
+<td>描述要開發的 feature（what &amp; why）</td>
+</tr>
+<tr>
+<td><code>/speckit.clarify</code></td>
+<td>針對模糊需求進行釐清</td>
+</tr>
+<tr>
+<td><code>/speckit.plan</code></td>
+<td>根據指定的技術與架構選擇產生實作計畫</td>
+</tr>
+<tr>
+<td><code>/speckit.tasks</code></td>
+<td>將實作計畫拆解為任務清單</td>
+</tr>
+<tr>
+<td><code>/speckit.analyze</code></td>
+<td>檢查憲章、Spec、實作計畫、任務清單是否一致</td>
+</tr>
+<tr>
+<td><code>/speckit.implement</code></td>
+<td>依任務清單自動實作</td>
+</tr>
+</tbody></table>
+<p>支援的 agent 涵蓋 GitHub Copilot、Claude Code、Gemini CLI 等等。</p>
+<h2 id="使用心得"><a href="#使用心得" class="headerlink" title="使用心得"></a>使用心得</h2><p>我是使用 Copilot 搭配 SpecKit 在前人的商品分類小程式上實驗 SpecKit，想要將原本的同步 API 呼叫改成非同步的 batch API 呼叫。總共跑了 3 個 iteration，用掉 80% tokens ，心得可以用下面這張圖表示：</p>
 <p><img src="/2025/12/31/2025-12-31-speckit-from-begin-to-giveup/speckit_image.png" alt="SpecKit 實測心得"></p>
-<p>Spec 和 Plan 看起來都很完美(我真的有認真一行行 review)，但到了 Task 和 Implement 階段就會逐漸失控，出現看起來很棒實際很 shit 的東西。</p>
+<p>真的滿傻眼的， Spec 和 Plan 看起來都很完美(我真的有認真一行行 review)，但到了 Task 和 Implement 階段就會逐漸失控，出現看起來很棒實際很 shit 的東西。</p>
 <h3 id="我的看法"><a href="#我的看法" class="headerlink" title="我的看法"></a>我的看法</h3><p>我認為翻車的原因主要有以下幾個：</p>
 <p><strong>AI 的幻覺</strong><br>現今 AI 的本質都只是預測下一個 token，只是精巧地模仿著心的機能。<br>對 AI 來說，文件與規範是透過很隱含的關係影響著程式碼， AI 的產出並不是經過邏輯上嚴密的推論而來。</p>
 <p><strong>Context 的長度有限</strong><br>基本上 AI 不會載入所有文件，所以寫在文件裡的規範不一定真的對 AI 造成效果。即使載入了也不一定獲得足夠的關注 (Attention is All You Need)。</p>
@@ -246,6 +286,8 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/AI/" rel="tag"># AI</a>
+              <a href="/tags/Agent/" rel="tag"># Agent</a>
+              <a href="/tags/SDD/" rel="tag"># SDD</a>
           </div>
 
         
@@ -257,7 +299,10 @@
     <a href="/2024/11/26/2024-11-26-self-host-rsshub/" rel="prev" title="自建 RSSHub 筆記">
       <i class="fa fa-chevron-left"></i> 自建 RSSHub 筆記
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2026/01/16/2026-01-16-skill-is-leverage-in-agent-era/" rel="next" title="Skill 是 Agent 時代的槓桿">
+      Skill 是 Agent 時代的槓桿 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -332,18 +377,18 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">categories</span>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

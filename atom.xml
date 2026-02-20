@@ -6,7 +6,7 @@
   <link href="https://blog.shun.idv.tw/atom.xml" rel="self"/>
   
   <link href="https://blog.shun.idv.tw/"/>
-  <updated>2025-12-31T04:00:00.000Z</updated>
+  <updated>2026-02-19T08:00:00.000Z</updated>
   <id>https://blog.shun.idv.tw/</id>
   
   <author>
@@ -17,23 +17,79 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>個人 Agent 開發紀錄</title>
+    <link href="https://blog.shun.idv.tw/2026/02/19/2026-02-19-personal-agent-development/"/>
+    <id>https://blog.shun.idv.tw/2026/02/19/2026-02-19-personal-agent-development/</id>
+    <published>2026-02-19T08:00:00.000Z</published>
+    <updated>2026-02-19T08:00:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>趁著年假期間衝刺開發我的個人 Agent。</p><p><a href="https://github.com/openclaw/openclaw">OpenClaw</a> 大概是現在最熱門的 AI agent 框架，功能完整、開箱即用。但想想還是決定自己做一個。</p><p>為什麼不直接用 OpenClaw？</p><ol><li>功能太多，我不是全部都需要</li><li>給的權限太大，我不敢把自己的個資都交給出去</li><li>Codebase 太大，不容易快速理解</li><li>最重要的是，我想順便學習 Agent 是怎麼運作的，所以最後決定自己做一個。</li></ol><h2 id="NanoClaw"><a href="#NanoClaw" class="headerlink" title="NanoClaw"></a>NanoClaw</h2><p>OpenClaw 爆紅之後冒出了很多相似的專案，例如 <a href="https://github.com/qwibitai/nanoclaw">NanoClaw</a> 或 <a href="https://github.com/HKUDS/nanobot">NanoBot</a>。</p><p>最後挑上 NanoClaw，有幾個原因：</p><ol><li><strong>按需增加功能</strong>：透過 Skill 追加客製化功能，讓 codebase 只有自己需要的 function ，我很喜歡這個哲學</li><li><strong>Container 隔離</strong>：只掛載需要的資料夾，從系統層面限制資料存取</li><li><strong>使用 Agent SDK</strong>：已經封裝好底層邏輯，可以專注在增加 Agent 能力上</li></ol><h2 id="學習如何做一個-Agent"><a href="#學習如何做一個-Agent" class="headerlink" title="學習如何做一個 Agent"></a>學習如何做一個 Agent</h2><p>深入之後才發現，Nanoclaw 跟 OpenClaw 雖然看起來相似，本質完全不同。<br>NanoClaw 依賴 Claude Code Agent SDK，大部分的 Agent 行為都交給 SDK 處理。有兩個好處： 1. 底層 Tool Calling 不用自己處理。 2. 隨著官方更新， Agent 能力也會跟著變強，也不用煩惱相容性。<br>OpenClaw 是基於 <a href="https://github.com/badlogic/pi-mono">pi-mono</a> 架構的實現（NanoBot 也是），也就是真的觸及了底層操作。沒有要從零打造 agent 的話，鑽研這些細節就會浪費一大堆時間。</p><p>其實 Agent 底層行為很簡單，就是四步：</p><ol><li>接收使用者輸入</li><li>LLM 推理，決定下一步</li><li>執行工具（Tool Calling），取得結果</li><li>將結果餵回 LLM，重複直到任務完成</li></ol><p>其餘都是在其上堆砌需要的能力。</p><h2 id="我的客製化-Agent"><a href="#我的客製化-Agent" class="headerlink" title="我的客製化 Agent"></a>我的客製化 Agent</h2><p>所以我為 agent 增加了什麼功能：</p><ol><li><strong>換成 Telegram</strong>：Bot API 功能更完整。</li><li><strong>記憶與人格</strong>：仿造 OpenClaw 的記憶架構，使用 soul、identity、memory 與日誌建立人格。只有反思時才能更新 soul 與 identity，讓人格穩定發展。</li><li><strong>優化對話 Context</strong>：加入 reset session 讓 context 不會一直累加，跨 session 的記憶由 memory 和日誌負責。同時限制記憶長度，不讓過時的記憶干擾 agent 。</li><li><strong>加入 Heptabase MCP</strong>：目前我的知識庫與工作日誌都在 Heptabase，讓 Agent 能讀取共享我的工作脈絡才能更好幫助到我。</li></ol><p>因為是 Side Project，基本上我是用 Vibe Coding 的方式在推進（ps. NanoClaw 本身也是 Vibe Coding）。也漸漸摸索出一些 vibe 比較順的方式：</p><ol><li>針對使用情境做自動化測試，每次改完能快速確認</li><li>針對 agent 犯過的錯建立 checklist，寫進 CLAUDE.md</li><li>要求紀錄詳細的 log，讓 agent 可以快速找出問題點</li><li>發展新功能前先做 survey、建立修改計畫，並讓 agent review 過（不過還是容易有盲點，網路上說 Codex review 得比較仔細）</li><li>放寬心，不要給 agent 太多限制，反而比較容易得到好的結果</li></ol><h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>做的過程中一直在想，耗費這麼多 token 做自己的 Agent 真的值得嗎？後來想通了：每個人對 Agent 的需求都不太一樣，公用模板雖然可以直接使用，但多多少少有些不完全貼合需求的地方。另外，了解 Agent 的架構後在為 Agent 增加功能或 debug 都能更順利也更個人化。</p><p>我想 Agent 時代的浪漫大概就是：你真的能打造一個完美契合自己使用習慣的 Agent。</p>]]></content>
+    
+    
+    <summary type="html">趁著年假期間衝刺開發我的個人 Agent。</summary>
+    
+    
+    
+    <category term="開發經驗" scheme="https://blog.shun.idv.tw/categories/%E9%96%8B%E7%99%BC%E7%B6%93%E9%A9%97/"/>
+    
+    
+    <category term="AI" scheme="https://blog.shun.idv.tw/tags/AI/"/>
+    
+    <category term="Agent" scheme="https://blog.shun.idv.tw/tags/Agent/"/>
+    
+    <category term="OpenClaw" scheme="https://blog.shun.idv.tw/tags/OpenClaw/"/>
+    
+    <category term="NanoClaw" scheme="https://blog.shun.idv.tw/tags/NanoClaw/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Skill 是 Agent 時代的槓桿</title>
+    <link href="https://blog.shun.idv.tw/2026/01/16/2026-01-16-skill-is-leverage-in-agent-era/"/>
+    <id>https://blog.shun.idv.tw/2026/01/16/2026-01-16-skill-is-leverage-in-agent-era/</id>
+    <published>2026-01-16T14:00:00.000Z</published>
+    <updated>2026-01-16T14:00:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>認真覺得 Skill 是 Agent 時代的最大突破，是遠超 MCP 的革新。為什麼我這麼覺得？</p><ol><li><strong>純文件</strong>：可以人與 Agent 共同閱讀、編輯，沒有溝通障礙。</li><li><strong>容易上手</strong>：除了純文件以外，格式也簡單，即使非工程背景的人也可以使用。</li><li><strong>客製化</strong>：因為純文件又容易上手，每個人都可以根據自己的需要編寫自己的 Skill，可以完美符合所有人的工作模式。</li></ol><p>我覺得第三點是影響最大的，驅使電腦做事從沒有像現在這麼容易。</p><p>過往需求需要經過層層的需求討論，確定需求後經過開發才能得到所需的功能。但有了 Skill 之後，光依賴 CLI 指令已經可以實現許多基礎需求與簡單的客製化需求了。<br>尤其在公司內部，複雜且機密的商業邏輯很難有一個通用系統可以完美符合，但 Skill 填補了這個空缺。只要使用者將邏輯寫下，Agent 就可以組合這些邏輯達成複雜且精確的行為，且不需外部人士參與。</p><p>Skill 的另一個強項是彈性，由 Agent 提供的彈性。可以在複雜情況下判斷最適合的做法，以及可以即時與使用者互動確定 Intent，都是過往不好做到的。<br>舉個例子是我最近在玩的 NanoClaw，他使用 Skill 來 setup 與 debug NanoClaw 所需的環境，結合 Agent 的思考能力，大部分環境問題都能解決。在過去這些都是寫安裝腳本的工程師要考慮周全的。</p><p>甚至，還可以驅使 Agent 根據使用者的使用過程去自我優化 Skill ，做到真正的客製化。</p><h2 id="目前用-Skill-做了什麼？"><a href="#目前用-Skill-做了什麼？" class="headerlink" title="目前用 Skill 做了什麼？"></a>目前用 Skill 做了什麼？</h2><p>我開始用 Skill 之後第一個念頭就是用來自動化平常工作中最繁瑣最多變化最覺得浪費時間的工作——<strong>查廣告認單</strong>。</p><p>廣告認單涉及整條 Data Pipeline 與眾多條件判斷，每個 case 都不相同，最後可能原因很簡單，我覺得是效益極低的一項工作。但我認為這完美符合 Agent + Skill 的使用情境。</p><p>首先我讓 Agent 讀遍資料流的專案，讓他知道如何讀取公司內部資料，對每個專案職責與條件判斷瞭若指掌。接著提供有問題的訂單編號，Agent 便可以自動查詢需要的資料，判斷可能的發生原因。<br>理想是這樣，但實際上發現沒有這麼順利，一是有些<strong>常識</strong>是在程式碼之外的，例如查案通常只需要查很短的區間內但他總會查很大的區間；二是線索並不一定完整，在查案時，有時是先猜測可能原因，再尋找資料與詢問使用者之後去證實猜測。</p><p>某種程度上也可以說是 Skill 沒有寫好，還在繼續優化的路上。</p><h2 id="革自己命的工程師"><a href="#革自己命的工程師" class="headerlink" title="革自己命的工程師"></a>革自己命的工程師</h2><p>現在 Agent 很會寫程式了，藉由 Skill 彌補不足的知識後，許多事不需依靠工程師也能完成了。不禁覺得工程師真的是一直在讓自己的工作消失。老實說這也是我最近在焦慮的事，隨著 Agent 能力愈來愈強，加上 Skill 補足 Domain Knowledge 之後，工程師接下來的立足之地在哪？</p><p>我認為會是人文素養：能夠正確的判斷與釐清使用者的意圖和需求，設想使用者的使用情境，為使用者提供最適合的解決方案。</p><p>因為 AI 只是個聖杯 aka 許願機，而不像工程師會通靈。</p>]]></content>
+    
+    
+    <summary type="html">認真覺得 Skill 是 Agent 時代的最大突破，是遠超 MCP 的革新。</summary>
+    
+    
+    
+    <category term="觀點" scheme="https://blog.shun.idv.tw/categories/%E8%A7%80%E9%BB%9E/"/>
+    
+    
+    <category term="AI" scheme="https://blog.shun.idv.tw/tags/AI/"/>
+    
+    <category term="Agent" scheme="https://blog.shun.idv.tw/tags/Agent/"/>
+    
+    <category term="Skill" scheme="https://blog.shun.idv.tw/tags/Skill/"/>
+    
+  </entry>
+  
+  <entry>
     <title>SpecKit - 從開始到放棄</title>
     <link href="https://blog.shun.idv.tw/2025/12/31/2025-12-31-speckit-from-begin-to-giveup/"/>
     <id>https://blog.shun.idv.tw/2025/12/31/2025-12-31-speckit-from-begin-to-giveup/</id>
     <published>2025-12-31T04:00:00.000Z</published>
     <updated>2025-12-31T04:00:00.000Z</updated>
     
-    <content type="html"><![CDATA[<p>上個月上了保哥的 SDD 課程，立刻找個簡單的專案來練習。<br>先說結論：有用但不多。以下講講我的使用心得，以及推薦的使用情境。</p><h2 id="SpecKit-是什麼？"><a href="#SpecKit-是什麼？" class="headerlink" title="SpecKit 是什麼？"></a>SpecKit 是什麼？</h2><p>SpecKit 是 GitHub 推出的開發工作流程工具，想把軟體開發標準化成一套結構化流程：從建立專案憲章(Constitution)、定義需求(Specify)、規劃實作(Plan)、拆解任務(Tasks)到最後的自動化實作(Implement)。</p><h2 id="使用心得"><a href="#使用心得" class="headerlink" title="使用心得"></a>使用心得</h2><p>我在前人的商品分類小程式上實驗 SpecKit，想要將原本的同步 API 呼叫改成非同步的 batch API 呼叫。總共跑了 3 個 iteration，心得可以用下面這張圖表示：</p><p><img src="/2025/12/31/2025-12-31-speckit-from-begin-to-giveup/speckit_image.png" alt="SpecKit 實測心得"></p><p>Spec 和 Plan 看起來都很完美(我真的有認真一行行 review)，但到了 Task 和 Implement 階段就會逐漸失控，出現看起來很棒實際很 shit 的東西。</p><h3 id="我的看法"><a href="#我的看法" class="headerlink" title="我的看法"></a>我的看法</h3><p>我認為翻車的原因主要有以下幾個：</p><p><strong>AI 的幻覺</strong><br>現今 AI 的本質都只是預測下一個 token，只是精巧地模仿著心的機能。<br>對 AI 來說，文件與規範是透過很隱含的關係影響著程式碼， AI 的產出並不是經過邏輯上嚴密的推論而來。</p><p><strong>Context 的長度有限</strong><br>基本上 AI 不會載入所有文件，所以寫在文件裡的規範不一定真的對 AI 造成效果。即使載入了也不一定獲得足夠的關注 (Attention is All You Need)。</p><p><strong>人類的幻覺</strong><br>從 spec 到規劃到實作之間存在大量的細節，通常人類覺得 AI 應該知道吧的部分 AI 並不知道。<br>btw 保哥一直說人類的幻覺比 AI 嚴重。</p><h3 id="尋找共存之道"><a href="#尋找共存之道" class="headerlink" title="尋找共存之道"></a>尋找共存之道</h3><p>經過了兩次大失敗之後，我想尋找與 AI 共存的方法。</p><p>我做了 Coding 的逆向工程：用已知的答案反推規格。</p><p>具體做法是：</p><ol><li>我先寫好程式碼</li><li>從程式碼產生 spec 後移除實作，只留下 interface</li><li>根據 spec 與 interface 進行 plan 與 task ，刪除 interface</li><li>人工審閱所有文件並微調後執行 implement</li></ol><p>這樣得到的結果大概就與我的實作有八九成像了，只需要進行一些實作細節微調。</p><p>從這個逆向工程可以得出：只要把握好 spec 與 interface，基本可以讓 AI 照著所想的規劃進行。<br>實際上這也很符合軟體工程的做法：維持介面穩定、抽換底層實作。</p><h2 id="還需要-SpecKit-嗎？"><a href="#還需要-SpecKit-嗎？" class="headerlink" title="還需要 SpecKit 嗎？"></a>還需要 SpecKit 嗎？</h2><p>回到 SpecKit ，如果我已經把 spec 和 interface 都想得很清楚了， SpecKit 是不是就毫無用武之地了。</p><p>我的答案是：是也不是。</p><p>SpecKit 仍然可以幫我釐清 spec 上的細節 (藉由 prompt 工程師精美的 prompt)，在 plan 時提供工程細節供 implement 階段參考。</p><p>只是，以上的流程並不一定要透過 SpecKit 完成，其他工具可能可以完成得更好 (<a href="https://github.com/obra/superpowers">Superpower</a> 看起來很 super)。<br>我認為 SpecKit 過於重視流程與形式，產生了一堆中間文件(review 真的很花時間)，但這些文件對開發並不一定有帶來助益。</p><h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>我之後應該不會再使用 SpecKit 來進行開發，但我透過 SpecKit 學習到了 SDD 的精神。<br>我會去找 SDD 的書籍來看 (Specification by Example 看起來不錯) ，提升與 AI 的溝通能力。<br>另外 <a href="https://github.com/Fission-AI/OpenSpec">OpenSpec</a> 看起來更輕量且彈性，也可以嘗試看看。</p>]]></content>
+    <content type="html"><![CDATA[<p>上個月上了保哥的 SDD 課程，立刻找個簡單的專案來練習。<br>先說結論：有用但不多。以下講講我的使用心得，以及推薦的使用情境。</p><h2 id="SpecKit-是什麼？"><a href="#SpecKit-是什麼？" class="headerlink" title="SpecKit 是什麼？"></a>SpecKit 是什麼？</h2><p>SpecKit 是 GitHub 推出的開源專案，核心理念基於 **SDD (Spec-Driven Development，規格驅動開發)**。想把軟體開發標準化成一套結構化流程：從建立專案憲章(Constitution)、定義需求(Specify)、規劃實作(Plan)、拆解任務(Tasks)到最後的自動化實作(Implement)。</p><p>整個流程透過 <code>specify</code> CLI 初始化專案，並在 agent 環境中使用一系列指令推進開發：</p><table><thead><tr><th>指令</th><th>用途</th></tr></thead><tbody><tr><td><code>/speckit.constitution</code></td><td>建立專案憲章，定義開發原則與標準</td></tr><tr><td><code>/speckit.specify</code></td><td>描述要開發的 feature（what &amp; why）</td></tr><tr><td><code>/speckit.clarify</code></td><td>針對模糊需求進行釐清</td></tr><tr><td><code>/speckit.plan</code></td><td>根據指定的技術與架構選擇產生實作計畫</td></tr><tr><td><code>/speckit.tasks</code></td><td>將實作計畫拆解為任務清單</td></tr><tr><td><code>/speckit.analyze</code></td><td>檢查憲章、Spec、實作計畫、任務清單是否一致</td></tr><tr><td><code>/speckit.implement</code></td><td>依任務清單自動實作</td></tr></tbody></table><p>支援的 agent 涵蓋 GitHub Copilot、Claude Code、Gemini CLI 等等。</p><h2 id="使用心得"><a href="#使用心得" class="headerlink" title="使用心得"></a>使用心得</h2><p>我是使用 Copilot 搭配 SpecKit 在前人的商品分類小程式上實驗 SpecKit，想要將原本的同步 API 呼叫改成非同步的 batch API 呼叫。總共跑了 3 個 iteration，用掉 80% tokens ，心得可以用下面這張圖表示：</p><p><img src="/2025/12/31/2025-12-31-speckit-from-begin-to-giveup/speckit_image.png" alt="SpecKit 實測心得"></p><p>真的滿傻眼的， Spec 和 Plan 看起來都很完美(我真的有認真一行行 review)，但到了 Task 和 Implement 階段就會逐漸失控，出現看起來很棒實際很 shit 的東西。</p><h3 id="我的看法"><a href="#我的看法" class="headerlink" title="我的看法"></a>我的看法</h3><p>我認為翻車的原因主要有以下幾個：</p><p><strong>AI 的幻覺</strong><br>現今 AI 的本質都只是預測下一個 token，只是精巧地模仿著心的機能。<br>對 AI 來說，文件與規範是透過很隱含的關係影響著程式碼， AI 的產出並不是經過邏輯上嚴密的推論而來。</p><p><strong>Context 的長度有限</strong><br>基本上 AI 不會載入所有文件，所以寫在文件裡的規範不一定真的對 AI 造成效果。即使載入了也不一定獲得足夠的關注 (Attention is All You Need)。</p><p><strong>人類的幻覺</strong><br>從 spec 到規劃到實作之間存在大量的細節，通常人類覺得 AI 應該知道吧的部分 AI 並不知道。<br>btw 保哥一直說人類的幻覺比 AI 嚴重。</p><h3 id="尋找共存之道"><a href="#尋找共存之道" class="headerlink" title="尋找共存之道"></a>尋找共存之道</h3><p>經過了兩次大失敗之後，我想尋找與 AI 共存的方法。</p><p>我做了 Coding 的逆向工程：用已知的答案反推規格。</p><p>具體做法是：</p><ol><li>我先寫好程式碼</li><li>從程式碼產生 spec 後移除實作，只留下 interface</li><li>根據 spec 與 interface 進行 plan 與 task ，刪除 interface</li><li>人工審閱所有文件並微調後執行 implement</li></ol><p>這樣得到的結果大概就與我的實作有八九成像了，只需要進行一些實作細節微調。</p><p>從這個逆向工程可以得出：只要把握好 spec 與 interface，基本可以讓 AI 照著所想的規劃進行。<br>實際上這也很符合軟體工程的做法：維持介面穩定、抽換底層實作。</p><h2 id="還需要-SpecKit-嗎？"><a href="#還需要-SpecKit-嗎？" class="headerlink" title="還需要 SpecKit 嗎？"></a>還需要 SpecKit 嗎？</h2><p>回到 SpecKit ，如果我已經把 spec 和 interface 都想得很清楚了， SpecKit 是不是就毫無用武之地了。</p><p>我的答案是：是也不是。</p><p>SpecKit 仍然可以幫我釐清 spec 上的細節 (藉由 prompt 工程師精美的 prompt)，在 plan 時提供工程細節供 implement 階段參考。</p><p>只是，以上的流程並不一定要透過 SpecKit 完成，其他工具可能可以完成得更好 (<a href="https://github.com/obra/superpowers">Superpower</a> 看起來很 super)。<br>我認為 SpecKit 過於重視流程與形式，產生了一堆中間文件(review 真的很花時間)，但這些文件對開發並不一定有帶來助益。</p><h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>我之後應該不會再使用 SpecKit 來進行開發，但我透過 SpecKit 學習到了 SDD 的精神。<br>我會去找 SDD 的書籍來看 (Specification by Example 看起來不錯) ，提升與 AI 的溝通能力。<br>另外 <a href="https://github.com/Fission-AI/OpenSpec">OpenSpec</a> 看起來更輕量且彈性，也可以嘗試看看。</p>]]></content>
     
     
     <summary type="html">上個月上了保哥的 SDD 課程，立刻找個簡單的專案來練習。先說結論：有用但不多。以下講講我的使用心得，以及推薦的使用情境。</summary>
     
     
     
-    <category term="軟體開發" scheme="https://blog.shun.idv.tw/categories/%E8%BB%9F%E9%AB%94%E9%96%8B%E7%99%BC/"/>
+    <category term="開發經驗" scheme="https://blog.shun.idv.tw/categories/%E9%96%8B%E7%99%BC%E7%B6%93%E9%A9%97/"/>
     
     
     <category term="AI" scheme="https://blog.shun.idv.tw/tags/AI/"/>
+    
+    <category term="Agent" scheme="https://blog.shun.idv.tw/tags/Agent/"/>
+    
+    <category term="SDD" scheme="https://blog.shun.idv.tw/tags/SDD/"/>
     
   </entry>
   
