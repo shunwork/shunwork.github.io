@@ -216,18 +216,19 @@
 <p><a target="_blank" rel="noopener" href="https://github.com/openclaw/openclaw">OpenClaw</a> 大概是現在最熱門的 AI agent 框架，功能完整、開箱即用。但想想還是決定自己做一個。</p>
 <p>為什麼不直接用 OpenClaw？</p>
 <ol>
-<li>功能太多，我不是全部都需要</li>
-<li>給的權限太大，我不敢把自己的個資都交給出去</li>
+<li>功能太多，我不是全部都需要，不想為不需要的功能買單</li>
+<li>給的權限太大，我不敢把自己的 key 與資料都交給他</li>
 <li>Codebase 太大，不容易快速理解</li>
 <li>最重要的是，我想順便學習 Agent 是怎麼運作的，所以最後決定自己做一個。</li>
 </ol>
 <h2 id="NanoClaw"><a href="#NanoClaw" class="headerlink" title="NanoClaw"></a>NanoClaw</h2><p>OpenClaw 爆紅之後冒出了很多相似的專案，例如 <a target="_blank" rel="noopener" href="https://github.com/qwibitai/nanoclaw">NanoClaw</a> 或 <a target="_blank" rel="noopener" href="https://github.com/HKUDS/nanobot">NanoBot</a>。</p>
 <p>最後挑上 NanoClaw，有幾個原因：</p>
 <ol>
-<li><strong>按需增加功能</strong>：透過 Skill 追加客製化功能，讓 codebase 只有自己需要的 function ，我很喜歡這個哲學</li>
+<li><strong>按需增加功能</strong>：我很喜歡這個哲學，透過 Skill 追加客製化功能，讓 codebase 只有自己需要的 function</li>
 <li><strong>Container 隔離</strong>：只掛載需要的資料夾，從系統層面限制資料存取</li>
 <li><strong>使用 Agent SDK</strong>：已經封裝好底層邏輯，可以專注在增加 Agent 能力上</li>
 </ol>
+<p>當然也是有缺點的：不能像 OpenClaw 那樣讓 Agent 為自己增加功能。</p>
 <h2 id="學習如何做一個-Agent"><a href="#學習如何做一個-Agent" class="headerlink" title="學習如何做一個 Agent"></a>學習如何做一個 Agent</h2><p>深入之後才發現，Nanoclaw 跟 OpenClaw 雖然看起來相似，本質完全不同。<br>NanoClaw 依賴 Claude Code Agent SDK，大部分的 Agent 行為都交給 SDK 處理。有兩個好處： 1. 底層 Tool Calling 不用自己處理。 2. 隨著官方更新， Agent 能力也會跟著變強，也不用煩惱相容性。<br>OpenClaw 是基於 <a target="_blank" rel="noopener" href="https://github.com/badlogic/pi-mono">pi-mono</a> 架構的實現（NanoBot 也是），也就是真的觸及了底層操作。沒有要從零打造 agent 的話，鑽研這些細節就會浪費一大堆時間。</p>
 <p>其實 Agent 底層行為很簡單，就是四步：</p>
 <ol>
@@ -252,8 +253,9 @@
 <li>發展新功能前先做 survey、建立修改計畫，並讓 agent review 過（不過還是容易有盲點，網路上說 Codex review 得比較仔細）</li>
 <li>放寬心，不要給 agent 太多限制，反而比較容易得到好的結果</li>
 </ol>
-<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>做的過程中一直在想，耗費這麼多 token 做自己的 Agent 真的值得嗎？後來想通了：每個人對 Agent 的需求都不太一樣，公用模板雖然可以直接使用，但多多少少有些不完全貼合需求的地方。另外，了解 Agent 的架構後在為 Agent 增加功能或 debug 都能更順利也更個人化。</p>
-<p>我想 Agent 時代的浪漫大概就是：你真的能打造一個完美契合自己使用習慣的 Agent。</p>
+<p>如果對我的 Agent 有興趣，可以到我的 github 看看。</p>
+<h2 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h2><p>做的過程中一直在想，耗費這麼多 token 做自己的 Agent 真的值得嗎？<br>後來想通了：每個人對 Agent 的需求都不太一樣，公用模板雖然可以直接使用，但終究無法完全貼合每個人的需求。我自己覺得自己開發 Agent 有一個很顯而易見的好處–成本控管，可以很清楚認知到每個功能對應的成本，選擇適合的做法。而且，了解 Agent 的架構後在為 Agent 增加功能或 debug 也都能更順利。</p>
+<p>我想 Agent 時代的浪漫大概就是：你真的能打造一個完美契合自己需求的 Agent。</p>
 
     </div>
 
